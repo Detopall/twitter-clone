@@ -30,10 +30,7 @@ router.get("/register", async (req, res) => {
 });
 
 
-router.post('/register', (req, res) => {
-	console.log(req.body);
-	res.render('register');
-});
-
+router.post("/register", userController.createUser);
+router.post("/login", userController.loginUser);
 
 module.exports = router;
