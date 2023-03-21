@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const middleware = require("../middleware");
+const userController = require("../controller/user-controller");
 
 
 router.get("/", middleware.requireLogin, async (req, res) => {
@@ -27,5 +28,9 @@ router.get("/register", async (req, res) => {
 	
 	res.render("register", payload);
 });
+
+
+router.post("/register", userController.createUser);
+router.post("/login", userController.loginUser);
 
 module.exports = router;
