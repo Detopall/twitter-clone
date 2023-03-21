@@ -6,15 +6,28 @@
   			<div class="alert alert-danger">{{errorMsg}}</div>
 		{{/if}}
 
-		<form method="post" action="/register">
+		<form method="post" onsubmit="event.preventDefault(); validateForm();" id="registerForm">
 			<input type="text" name="firstname" id="firstname" placeholder="First Name" required autocomplete="off">
 			<input type="text" name="lastname" id="lastname" placeholder="Last Name" required autocomplete="off">
 
 			<input type="text" name="username" id="username" placeholder="Username" required autocomplete="off">
 			<input type="password" name="password" id="password" placeholder="Password" required>
 			<input type="password" name="passwordConf" id="passwordConf" placeholder="Confirm Password" required>
-			<input type="submit" value="Register">
+			<input type="submit" value="Register" id="register">
 		</form>
 		<a href="/login"> Already have an account? Login! </a>
 	</div>
 </div>
+
+<script>
+	function validateForm(e){
+		const form = document.querySelector("#registerForm");
+		const pwd1 = document.querySelector("#password");
+		const pwd2 = document.querySelector("#passwordConf");
+		if (pwd1.value !== pwd2.value){
+			alert("Passwords do not match, try again");
+		} else {
+			form.submit();
+		}
+	}
+</script>

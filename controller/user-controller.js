@@ -47,7 +47,7 @@ exports.loginUser = async (req, res) => {
 		const loggedInUser = await User.find({"username": req.body.username}, {"password": 0});
 		req.session.user = loggedInUser;
 		res.redirect("/");
-		
+
 	} catch (err) {
 		console.error("Cannot login user: ", err);
 		const errorMsg = "Could not login user. Please try again later.";
