@@ -1,11 +1,11 @@
 <div class="wrapper">
 	<div class="register">
 		<h2> Register </h2>
-		<form method="post">
-			<input type="text" name="firstName" id="firstName" placeholder="First Name" required>
-			<input type="text" name="lastName" id="lastName" placeholder="Last Name" required>
+		<form method="post" action="/register">
+			<input type="text" name="firstname" id="firstname" placeholder="First Name" required autocomplete="off">
+			<input type="text" name="lastname" id="lastname" placeholder="Last Name" required autocomplete="off">
 
-			<input type="text" name="username" id="username" placeholder="Username" required>
+			<input type="text" name="username" id="username" placeholder="Username" required autocomplete="off">
 			<input type="password" name="password" id="password" placeholder="Password" required>
 			<input type="password" name="passwordConf" id="passwordConf" placeholder="Confirm Password" required>
 			<input type="submit" value="Register">
