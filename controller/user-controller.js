@@ -45,7 +45,9 @@ exports.loginUser = async (req, res) => {
 	try {
 		console.log(`${req.body.username} is logged in`);
 		const loggedInUser = await User.find({"username": req.body.username}, {"password": 0});
-		req.session.user = loggedInUser;
+		
+		//logged in user returns a list of one user
+		req.session.user = loggedInUser[0];
 		res.redirect("/");
 
 	} catch (err) {
