@@ -6,12 +6,22 @@ const bcrypt = require('bcryptjs');
 
 exports.createUser = async (req, res) => {
 	console.log(req.body);
-	if (await usernameAlreadyExists(req)) return;
-	const user = new User(req.body);
-	await user.save();
-	const registeredUser = await User.findById({"_id": user._id}, {"password": 0});
-	console.log(registeredUser);
-	res.send({user: registeredUser});
+	if (await usernameAlreadyExists(req)) {
+		const errorMsg = "Username already in use";
+		return res.render("register", {errorMsg});
+	}
+
+	try {
+		const user = new User(req.body);
+		await user.save();
+		const registeredUser = await User.findById({"_id": user._id}, {"password": 0});
+		console.log(registeredUser);
+		res.send({user: registeredUser});
+	} catch(err) {
+		console.error("Cannot register user: ", err);
+		const errorMsg = "Could not create user. Please try again later.";
+		return res.render("register", { errorMsg });
+	}
 }
 
 async function usernameAlreadyExists(req){
@@ -21,13 +31,25 @@ async function usernameAlreadyExists(req){
 }
 
 exports.loginUser = async (req, res) => {
-	if (!await usernameAlreadyExists(req)) return;
-	if (!await validPassword(req)) return;
-	console.log(`${req.body.username} is logged in`);
+	if (!await usernameAlreadyExists(req)) {
+		const errorMsg = "Username already does not exist";
+		return res.render("login", {errorMsg});
+	}
 
-	const loggedInUser = await User.find({"username": req.body.username}, {"password": 0});
+	if (!await validPassword(req)) {
+		const errorMsg = "Invalid password";
+		return res.render("login", {errorMsg});
+	}
 
-	res.send({user: loggedInUser[0]});
+	try {
+		console.log(`${req.body.username} is logged in`);
+		const loggedInUser = await User.find({"username": req.body.username}, {"password": 0});
+		res.send({user: loggedInUser[0]});
+	} catch (err) {
+		console.error("Cannot login user: ", err);
+		const errorMsg = "Could not login user. Please try again later.";
+		return res.render("register", { errorMsg });
+	}
 }
 
 async function validPassword(req){

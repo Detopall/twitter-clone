@@ -1,6 +1,11 @@
 <div class="wrapper">
 	<div class="login">
 		<h2> Login </h2>
+
+		{{#if errorMsg}}
+  			<div class="alert alert-danger">{{errorMsg}}</div>
+		{{/if}}
+
 		<form method="post">
 			<input type="text" name="username" id="username" placeholder="Username" required autocomplete="off">
 			<input type="password" name="password" id="password" placeholder="Password" required>
