@@ -8,7 +8,7 @@ body {
     margin-top: 1rem;
 }
 
-.login {
+.login, .register {
     padding: 0.5rem;
     width: 80%;
     max-width: 30rem;
@@ -17,7 +17,11 @@ body {
     box-shadow: 0 0.1rem 0.2rem rgba(0,0,0,0.9);
 }
 
-.login form {
+.login h2, .register h2 {
+	margin-bottom: 1.5rem;
+}
+
+.login form, .register form {
     display: flex;
     flex-flow: column wrap;
 }

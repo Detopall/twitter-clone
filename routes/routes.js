@@ -20,4 +20,12 @@ router.get("/login", async (req, res) => {
 	res.render("login", payload);
 });
 
+router.get("/register", async (req, res) => {
+	const payload = {
+		"pageTitle": "Register"
+	};
+	
+	res.render("register", payload);
+});
+
 module.exports = router;
