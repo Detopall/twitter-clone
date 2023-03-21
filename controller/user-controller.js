@@ -32,13 +32,8 @@ async function usernameAlreadyExists(req){
 }
 
 exports.loginUser = async (req, res) => {
-	if (!await usernameAlreadyExists(req)) {
-		const errorMsg = "Username does not exist";
-		return res.render("login", {errorMsg});
-	}
-
-	if (!await validPassword(req)) {
-		const errorMsg = "Invalid password";
+	if (!await usernameAlreadyExists(req) || !await validPassword(req)) {
+		const errorMsg = "Username or password are invalid";
 		return res.render("login", {errorMsg});
 	}
 
