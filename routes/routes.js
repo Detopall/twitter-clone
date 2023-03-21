@@ -6,7 +6,8 @@ const userController = require("../controller/user-controller");
 
 router.get("/", middleware.requireLogin, async (req, res) => {
 	const payload = {
-		"pageTitle": "Home"
+		"pageTitle": "Home",
+		user: req.session.user
 	};
 	
 	res.render("home", payload);
