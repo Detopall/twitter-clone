@@ -15,8 +15,9 @@ exports.createUser = async (req, res) => {
 		const user = new User(req.body);
 		await user.save();
 		const registeredUser = await User.findById({"_id": user._id}, {"password": 0});
-		console.log(registeredUser);
-		res.send({user: registeredUser});
+		req.session.user = registeredUser;
+		res.redirect("/");
+
 	} catch(err) {
 		console.error("Cannot register user: ", err);
 		const errorMsg = "Could not create user. Please try again later.";
@@ -32,7 +33,7 @@ async function usernameAlreadyExists(req){
 
 exports.loginUser = async (req, res) => {
 	if (!await usernameAlreadyExists(req)) {
-		const errorMsg = "Username already does not exist";
+		const errorMsg = "Username does not exist";
 		return res.render("login", {errorMsg});
 	}
 
@@ -44,11 +45,13 @@ exports.loginUser = async (req, res) => {
 	try {
 		console.log(`${req.body.username} is logged in`);
 		const loggedInUser = await User.find({"username": req.body.username}, {"password": 0});
-		res.send({user: loggedInUser[0]});
+		req.session.user = loggedInUser;
+		res.redirect("/");
+		
 	} catch (err) {
 		console.error("Cannot login user: ", err);
 		const errorMsg = "Could not login user. Please try again later.";
-		return res.render("register", { errorMsg });
+		return res.render("login", { errorMsg });
 	}
 }
 

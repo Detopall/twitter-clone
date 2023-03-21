@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		default: "/images/profilePic.png"
 	}
-});
+}, {timestamps: true});
 
 UserSchema.pre("save", async function (next) {
 	try {
