@@ -14,7 +14,6 @@ router.get("/", middleware.requireLogin, async (req, res) => {
 	res.render("home", payload);
 });
 
-
 router.get("/login", async (req, res) => {
 	const payload = {
 		"pageTitle": "Login",
@@ -31,6 +30,14 @@ router.get("/register", async (req, res) => {
 	};
 	
 	res.render("register", payload);
+});
+
+router.get("/logout", async (req, res) => {
+	if (req.session) {
+		req.session.destroy(() => {
+			res.redirect("/login");
+		});
+	}
 });
 
 
