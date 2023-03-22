@@ -1,5 +1,50 @@
+:root {
+	--twitter-blue: #1FA2F1;
+	--buttonHoverBG: #D4EDFF;
+}
+
 body {
-    background-color: #0099FF;
+    background-color: var(--twitter-blue);
+	display: flex;
+	justify-content: center;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.nav {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.nav a {
+	display: block;
+	margin: 0.5rem 2rem 1.5rem 0.5rem;
+	font-size: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: black;
+}
+
+.nav a.crow-icon {
+	color: white;
+}
+
+.nav a.crow-icon:hover {
+	color: black;
+}
+
+.nav a:hover {
+	color: var(--buttonHoverBG);
+}
+
+.wrapper.auth {
+	width: 25rem;
 }
 
 .wrapper {
@@ -9,12 +54,17 @@ body {
 }
 
 .login, .register {
-    padding: 0.5rem;
+	border-radius: 0.5rem;
+    padding: 1rem;
     width: 80%;
     max-width: 30rem;
     background-color: white;
     text-align: center;
-    box-shadow: 0 0.1rem 0.2rem rgba(0,0,0,0.9);
+	margin: 1rem 0 1rem 0;
+}
+
+.main-wrapper {
+	background-color: white;
 }
 
 .login h2, .register h2 {
@@ -35,7 +85,7 @@ input[type="text"], input[type="password"] {
 }
 
 input[type="submit"] {
-    background-color: #0099FF;
+    background-color: var(--twitter-blue);
     border: none;
     color: white;
     margin-bottom: 2rem;
@@ -44,8 +94,4 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #5999FF;
-}
-
-a {
-	text-decoration: none;
 }
