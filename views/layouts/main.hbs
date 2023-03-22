@@ -11,6 +11,17 @@
 	<title>{{pageTitle}}</title>
 </head>
 <body>
-	{{{body}}}
+	{{#if showNav}}
+	{{> nav}}
+
+	<div class="wrapper col-10 col-md-8 col-lg-6">
+		{{{body}}}
+	</div>
+
+	<div class="d-none d-md-block col-md-2 col-lg-4">This is text</div>
+	
+	{{else}}
+		{{{body}}}
+	{{/if}}
 </body>
 </html>
