@@ -93,6 +93,28 @@ a {
 	flex: 1;
 }
 
+.post-form-container {
+	display: flex;
+	padding: var(--spacing);
+	border-bottom: 0.7rem solid var(--lightGrey);
+	flex-shrink: 0;
+}
+
+.user-img-container {
+	width: 3rem;
+	height: 3rem;
+}
+
+.user-img-container img {
+	width: 100%;
+	border-radius: 50%;
+	background-color: lightgrey;
+}
+
+
+
+/* LOGIN AND REGISTER PAGE */
+
 .login h2, .register h2 {
 	margin-bottom: 1.5rem;
 }
