@@ -98,6 +98,7 @@ a {
 	padding: var(--spacing);
 	border-bottom: 0.7rem solid var(--lightGrey);
 	flex-shrink: 0;
+	justify-content: space-around;
 }
 
 .user-img-container {
@@ -108,9 +109,45 @@ a {
 .user-img-container img {
 	width: 100%;
 	border-radius: 50%;
-	background-color: lightgrey;
+	background-color: black;
 }
 
+
+.textarea-container {
+	flex: 0.7;
+	padding-left: var(--spacing);
+}
+
+.textarea-container textarea {
+	width: 100%;
+	resize: none;
+	border: none;
+	font-size: 1.2rem;
+	border: 0.1rem solid var(--lightGrey);
+	border-radius: 0.2rem 0.5rem;
+}
+
+.textarea-container textarea:focus {
+	outline: none;
+}
+
+#submit-post-button {
+	background-color: var(--twitter-blue);
+	border-radius: 2.5rem;
+	border: none;
+	padding: 0.5rem 1rem;
+	color: black;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#submit-post-button:hover {
+	background-color: aquamarine;
+}
+
+#submit-post-button:disabled {
+	background-color: var(--lightGrey);
+}
 
 
 /* LOGIN AND REGISTER PAGE */
