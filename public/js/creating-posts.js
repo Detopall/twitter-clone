@@ -46,54 +46,66 @@ function displayPost(postData){
 }
 
 function createPostHtml(postData){
+	if (!postData) return;
+
 	const displayName = `${postData.postedBy.firstname} ${postData.postedBy.lastname}`;
 	const timestamp = timeSince(postData.createdAt);
 
 	const likedBtnActiveClass = postData.likes.includes(USER_LOGGED_IN._id) ? "active" : "";
 	const retweetBtnActiveClass = postData.retweetUsers.includes(USER_LOGGED_IN._id) ? "active": "";
-	
+
+	const isRetweet = postData.retweetData !== undefined;
+	const retweetedBy = isRetweet ? postData.postedBy.username : null;
+	postData = isRetweet ? postData.retweetData : postData;
+
+
+	return renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass);
+}
+
+function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass){
 	return `
-			<div class="post" data-id='${postData._id}'>
-				<div class="main-content-container">
-					<div class="user-img-container">
-						<img src="../${postData.postedBy.profilePic}" alt='profile-pic'>
+	<div class="post" data-id='${postData._id}'>
+		<div class="main-content-container">
+			<div class="user-img-container">
+				<img src="../${postData.postedBy.profilePic}" alt='profile-pic'>
+			</div>
+			<div class="post-content-container">
+				<div class="header">
+					<a href="/profile/${postData.postedBy.username}" class="display-name">
+						${displayName}
+					</a>
+					<span class="username">@${postData.postedBy.username}</span>
+					<span class="date">${timestamp}</span>
+				</div>
+				<div class="post-body">
+					<span>${postData.content}</span>
+				</div>
+				<div class="post-footer">
+					<div class="post-button-container like">
+						<button class="like-button ${likedBtnActiveClass}">
+							<i class="far fa-heart"></i>
+							<span>${postData.likes.length || ""}</span>
+						</button>
 					</div>
-					<div class="post-content-container">
-						<div class="header">
-							<a href="/profile/${postData.postedBy.username}" class="display-name">
-								${displayName}
-							</a>
-							<span class="username">@${postData.postedBy.username}</span>
-							<span class="date">${timestamp}</span>
-						</div>
-						<div class="post-body">
-							<span>${postData.content}</span>
-						</div>
-						<div class="post-footer">
-							<div class="post-button-container like">
-								<button class="like-button ${likedBtnActiveClass}">
-									<i class="far fa-heart"></i>
-									<span>${postData.likes.length || ""}</span>
-								</button>
-							</div>
 
-							<div class="post-button-container retweet">
-								<button class="retweet-button ${retweetBtnActiveClass}">
-									<i class='fas fa-retweet'></i>
-									<span>${postData.retweetUsers.length || ""}</span>
-								</button>
-							</div>
+					<div class="post-button-container retweet">
+						<button class="retweet-button ${retweetBtnActiveClass}">
+							<i class='fas fa-retweet'></i>
+							<span>${postData.retweetUsers.length || ""}</span>
+						</button>
+					</div>
 
-							<div class="post-button-container">
-								<button>
-									<i class="far fa-comment"></i>
-								</button>
-							</div>
-						</div>
+					<div class="post-button-container">
+						<button>
+							<i class="far fa-comment"></i>
+						</button>
 					</div>
 				</div>
 			</div>
-			`;
+		</div>
+	</div>
+	`;
+
 }
 
 

@@ -24,8 +24,9 @@ exports.sendPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
 	try {
-		const posts = await TwitterPost.find().populate('postedBy');
-		res.send(posts);
+		const posts = await TwitterPost.find().populate('postedBy').populate("retweetData");
+		const populatedPosts = await TwitterPost.populate(posts, {path: "retweetData.postedBy"});
+		res.send(populatedPosts);
 	} catch(err) {
 		console.error(err);
 		res.sendStatus(500);
@@ -77,6 +78,7 @@ exports.retweetPost = async (req, res) => {
 	.catch(err => {
 	console.error(err);
 	res.sendStatus(500)});
+
 
 	// Insert post retweet
 	const option = deletedPost != null ? "$pull" : "$addToSet";
