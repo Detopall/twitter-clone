@@ -16,7 +16,15 @@ connectDB();
 app.use(express.json()); //has to be before all routes are defined
 app.use(express.urlencoded({extended: true})); //same as above
 
-app.engine('.hbs', exphbs.engine({defaultLayout: "main", extname: ".hbs",  partialsDir: __dirname + '/views/partials'}));
+app.engine('.hbs', exphbs.engine({defaultLayout: "main", extname: ".hbs",  partialsDir: __dirname + '/views/partials',
+helpers:{
+	section: function(name, options){
+	if(!this._sections) this._sections = {};
+	this._sections[name] = options.fn(this);
+	return null;}
+}
+}));
+
 app.set('view engine', '.hbs');
 
 
