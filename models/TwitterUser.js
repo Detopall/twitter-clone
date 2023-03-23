@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
 require("dotenv").config({path: './config/config.env'});
 const SALT_NUM = process.env.SALT_NUM;
@@ -26,7 +27,8 @@ const UserSchema = new mongoose.Schema({
 	profilePic: {
 		type: String,
 		default: "/images/profilePic.png"
-	}
+	},
+	likes: [{type: Schema.Types.ObjectId, ref: "TwitterPost"}]
 }, {timestamps: true});
 
 UserSchema.pre("save", async function (next) {
