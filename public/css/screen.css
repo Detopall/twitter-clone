@@ -33,6 +33,10 @@ button {
 	color: var(--greyButtonText);
 }
 
+button i, button span {
+	pointer-events: none;
+}
+
 .nav {
     display: flex;
     flex-flow: column wrap;
