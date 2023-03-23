@@ -12,8 +12,9 @@ exports.sendPost = async (req, res) => {
 	});
 	try {
 		await post.save();
-		return res.send(post);
+		const newPost = await TwitterPost.findById(post._id).populate('postedBy');
+		return res.send(newPost);
 	} catch(err){
-		return res.sendStatus(400);
+		return res.sendStatus(500);
 	}
 }
