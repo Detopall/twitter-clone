@@ -58,13 +58,18 @@ function createPostHtml(postData){
 	const retweetedBy = isRetweet ? postData.postedBy.username : null;
 	postData = isRetweet ? postData.retweetData : postData;
 
+	let retweetText = "";
+	if (isRetweet){
+		retweetText = `<span>Retweeted by: <a href="/profile/${retweetedBy}">@${retweetedBy}</a></span>`;
+	}
 
-	return renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass);
+	return renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText);
 }
 
-function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass){
+function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText){
 	return `
 	<div class="post" data-id='${postData._id}'>
+		<div class="post-action-container">${retweetText}</div>
 		<div class="main-content-container">
 			<div class="user-img-container">
 				<img src="../${postData.postedBy.profilePic}" alt='profile-pic'>

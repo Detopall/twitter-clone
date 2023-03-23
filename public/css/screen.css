@@ -110,7 +110,7 @@ button i, button span {
 	flex: 1;
 }
 
-/* POST CONTAINER */
+/* NEW POST CREATING CONTAINER */
 
 .post-form-container {
 	display: flex;
@@ -168,7 +168,7 @@ button i, button span {
 	background-color: var(--lightGrey);
 }
 
-/* CREATED POSTS CONTAINERS */
+/* POST CONTAINERS */
 
 .post {
 	display: flex;
@@ -248,6 +248,14 @@ button i, button span {
 .post-button-container.retweet button.active i {
 	color: var(--button-retweet-clicked);
 	font-weight: bold;
+}
+
+.post-action-container {
+	padding-left: 4rem;
+	font-size: 1rem;
+	color: var(--greyText);
+	text-decoration: underline;
+	margin-bottom: var(--spacing);
 }
 
 /* LOGIN AND REGISTER PAGE */
