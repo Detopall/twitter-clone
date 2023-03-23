@@ -34,10 +34,15 @@ document.addEventListener("click", async (e) => {
 		try {
 			const response = await fetch("/api/posts", getOptionsPost(data));
 			const jsonData = await response.json();
-			console.log(jsonData);
+			displayPost(jsonData);
 		} catch (err) {
 			console.error("Something went wrong: ", err);
 		}
+		
+		// manually clearing text will not trigger the keyup event, so manually setting button disabled
+		textarea.value = "";
+		submitButton.disabled = true;
+
 	}
 });
 
@@ -50,4 +55,60 @@ function getOptionsPost(data){
 		},
 		body: JSON.stringify(data)
 	}
+}
+
+
+function displayPost(postData){
+	console.log(postData);
+	const html = createPostHtml(postData);
+	const postContainer = document.querySelector(".post-container");
+	if (!postContainer) return;
+
+	postContainer.insertAdjacentHTML("afterbegin", html);
+}
+
+function createPostHtml(postData){
+	const displayName = `${postData.postedBy.firstname} ${postData.postedBy.lastname}`;
+	const timestamp = "TO DO LATER";
+
+	return `
+			<div class="post">
+				<div class="main-content-container">
+					<div class="user-img-container">
+						<img src="../${postData.postedBy.profilePic}" alt='profile-pic'>
+					</div>
+					<div class="post-content-container">
+						<div class="header">
+							<a href="/profile/${postData.postedBy.username}" class="display-name">
+								${displayName}
+							</a>
+							<span class="username">@${postData.postedBy.username}</span>
+							<span class="date">${timestamp}</span>
+						</div>
+						<div class="post-body">
+							<span>${postData.content}</span>
+						</div>
+						<div class="post-footer">
+							<div class="post-button-container">
+								<button>
+									<i class="far fa-heart"></i>
+								</button>
+							</div>
+
+							<div class="post-button-container">
+								<button>
+									<i class='fas fa-retweet'></i>
+								</button>
+							</div>
+
+							<div class="post-button-container">
+								<button>
+									<i class="far fa-comment"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			`
 }
