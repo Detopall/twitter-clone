@@ -41,7 +41,6 @@ document.addEventListener("click", async (e) => {
 	}
 });
 
-recieving
 
 function getOptionsPost(data){
 	return {
