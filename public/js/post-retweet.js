@@ -10,14 +10,12 @@ document.addEventListener("click", async (e) => {
 	const postData = await sendRetweet(postId);
 	if (!postData) return;
 
-	console.log(postData);
-	//retweetButton.querySelector("span").innerHTML = `${postData.likes.length}` || "";
-
-	// if (postData.likes.includes(USER_LOGGED_IN._id)){
-	// 	retweetButton.classList.add("active");
-	// } else {
-	// 	retweetButton.classList.remove("active");
-	// }
+	retweetButton.querySelector("span").innerHTML = `${postData.retweetUsers.length}` || "";
+	if (postData.retweetUsers.includes(USER_LOGGED_IN._id)){
+		retweetButton.classList.add("active");
+	} else {
+		retweetButton.classList.remove("active");
+	}
 });
 
 async function sendRetweet(postId){

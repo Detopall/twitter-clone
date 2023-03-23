@@ -46,11 +46,12 @@ function displayPost(postData){
 }
 
 function createPostHtml(postData){
-	const displayName = `${postData.postedBy.firstname}_${postData.postedBy.lastname}`;
+	const displayName = `${postData.postedBy.firstname} ${postData.postedBy.lastname}`;
 	const timestamp = timeSince(postData.createdAt);
 
 	const likedBtnActiveClass = postData.likes.includes(USER_LOGGED_IN._id) ? "active" : "";
-
+	const retweetBtnActiveClass = postData.retweetUsers.includes(USER_LOGGED_IN._id) ? "active": "";
+	
 	return `
 			<div class="post" data-id='${postData._id}'>
 				<div class="main-content-container">
@@ -76,9 +77,10 @@ function createPostHtml(postData){
 								</button>
 							</div>
 
-							<div class="post-button-container">
-								<button class="retweet-button">
+							<div class="post-button-container retweet">
+								<button class="retweet-button ${retweetBtnActiveClass}">
 									<i class='fas fa-retweet'></i>
+									<span>${postData.retweetUsers.length || ""}</span>
 								</button>
 							</div>
 

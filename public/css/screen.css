@@ -9,7 +9,7 @@
 	--button-heart: rgba(255, 0, 0, 0.2);
 	--button-heart-clicked: rgba(255, 0, 0, 0.8);
 	--button-retweet: rgba(0, 255, 0, 0.2);
-	--button-retweet-clicked: rgba(0, 255, 0, 0.8);
+	--button-retweet-clicked: rgba(0, 210, 0, 0.8);
 }
 
 body {
