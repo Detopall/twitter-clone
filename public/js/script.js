@@ -17,4 +17,32 @@ document.addEventListener("keyup", (e) => {
 			submitButton.style.cursor = "pointer";
 		}
 	}
-})
+});
+
+document.addEventListener("click", async (e) => {
+	if (e.target.matches("#submit-post-button")){
+		const submitButton = document.querySelector("#submit-post-button");
+		const textarea = document.querySelector("#post-textarea");
+		if (!textarea || !submitButton) return;
+		
+		const value = textarea.value.trim();
+
+		const data = {
+			content: value
+		}
+
+		const response = await fetch("/api/posts", getOptionsPost(data));
+		const jsonData = await response.json();
+		console.log(jsonData);
+	}
+});
+
+function getOptionsPost(data){
+	return {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(data)
+	}
+}
