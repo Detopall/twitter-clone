@@ -31,11 +31,17 @@ document.addEventListener("click", async (e) => {
 			content: value
 		}
 
-		const response = await fetch("/api/posts", getOptionsPost(data));
-		const jsonData = await response.json();
-		console.log(jsonData);
+		try {
+			const response = await fetch("/api/posts", getOptionsPost(data));
+			const jsonData = await response.json();
+			console.log(jsonData);
+		} catch (err) {
+			console.error("Something went wrong: ", err);
+		}
 	}
 });
+
+recieving
 
 function getOptionsPost(data){
 	return {
