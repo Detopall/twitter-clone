@@ -7,7 +7,9 @@
 	--greyButtonText: rgba(0, 0, 0, 0.34);
 	--button-comment: rgba(0, 0, 255, 0.2);
 	--button-heart: rgba(255, 0, 0, 0.2);
+	--button-heart-clicked: rgba(255, 0, 0, 0.8);
 	--button-retweet: rgba(0, 255, 0, 0.2);
+	--button-retweet-clicked: rgba(0, 255, 0, 0.8);
 }
 
 body {
@@ -238,6 +240,15 @@ button i, button span {
 	border-radius: 50%;
 }
 
+.post-button-container.like button.active i {
+	color: var(--button-heart-clicked);
+	font-weight: bold;
+}
+
+.post-button-container.retweet button.active i {
+	color: var(--button-retweet-clicked);
+	font-weight: bold;
+}
 
 /* LOGIN AND REGISTER PAGE */
 
