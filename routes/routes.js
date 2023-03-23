@@ -8,7 +8,8 @@ router.get("/", middleware.requireLogin, async (req, res) => {
 	const payload = {
 		"pageTitle": "Home",
 		user: req.session.user,
-		showNav: true
+		showNav: true,
+		isHome: true,
 	};
 	
 	res.render("home", payload);

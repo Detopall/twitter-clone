@@ -138,6 +138,7 @@ button {
 	font-size: 1.2rem;
 	border: 0.1rem solid var(--lightGrey);
 	border-radius: 0.2rem 0.5rem;
+	padding: 0.5rem;
 }
 
 .textarea-container textarea:focus {
