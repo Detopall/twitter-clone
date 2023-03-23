@@ -28,7 +28,9 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		default: "/images/profilePic.png"
 	},
-	likes: [{type: Schema.Types.ObjectId, ref: "TwitterPost"}]
+	likes: [{type: Schema.Types.ObjectId, ref: "TwitterPost"}],
+	retweets: [{type: Schema.Types.ObjectId, ref: "TwitterPost"}]
+	
 }, {timestamps: true});
 
 UserSchema.pre("save", async function (next) {

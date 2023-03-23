@@ -24,8 +24,9 @@ exports.sendPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
 	try {
-		const posts = await TwitterPost.find().populate('postedBy');
-		res.send(posts);
+		const posts = await TwitterPost.find().populate('postedBy').populate("retweetData");
+		const populatedPosts = await TwitterPost.populate(posts, {path: "retweetData.postedBy"});
+		res.send(populatedPosts);
 	} catch(err) {
 		console.error(err);
 		res.sendStatus(500);
@@ -61,4 +62,54 @@ exports.likePost = async (req, res) => {
 		console.error(err);
 		res.sendStatus(500);
 	}
+}
+
+
+exports.retweetPost = async (req, res) => {
+	const userId = req.session.user._id;
+	const postId = req.params.id;
+
+	// Delete retweet to check if it has existed
+
+	const deletedPost = await TwitterPost.findOneAndDelete({
+		postedBy: userId,
+		retweetData: postId
+	})
+	.catch(err => {
+	console.error(err);
+	res.sendStatus(500)});
+
+
+	// Insert post retweet
+	const option = deletedPost != null ? "$pull" : "$addToSet";
+	let repost = deletedPost;
+
+	if (!repost) {
+		repost = await TwitterPost.create({
+			postedBy: userId,
+			retweetData: postId
+		});
+
+		try {
+			req.session.user = await TwitterUser.findOneAndUpdate(
+				{_id: userId},
+				{[option]:{ retweets: repost._id }},
+				{new: true}
+				);
+		} catch(err) {
+			console.error(err);
+			res.sendStatus(500);
+		}
+	}
+
+	// adding the users to retweet users
+	const post = await TwitterPost.findOneAndUpdate(
+		{_id: postId},
+		{ [option]: { retweetUsers: userId }},
+		{new: true})
+		.catch(err => {
+			console.error(err);
+			res.sendStatus(500)});
+	
+	return res.send(post);
 }

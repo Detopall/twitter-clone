@@ -6,10 +6,11 @@ const userController = require("../controller/user-controller");
 
 router.get("/", middleware.requireLogin, async (req, res) => {
 	const payload = {
-		"pageTitle": "Home",
+		pageTitle: "Home",
 		user: req.session.user,
+		userJS: JSON.stringify(req.session.user),
 		showNav: true,
-		isHome: true,
+		isHome: true
 	};
 	
 	res.render("home", payload);
@@ -17,7 +18,7 @@ router.get("/", middleware.requireLogin, async (req, res) => {
 
 router.get("/login", async (req, res) => {
 	const payload = {
-		"pageTitle": "Login",
+		pageTitle: "Login",
 		showNav: false
 	};
 	
@@ -26,7 +27,7 @@ router.get("/login", async (req, res) => {
 
 router.get("/register", async (req, res) => {
 	const payload = {
-		"pageTitle": "Register",
+		pageTitle: "Register",
 		showNav: false
 	};
 	

@@ -7,13 +7,16 @@
 	--greyButtonText: rgba(0, 0, 0, 0.34);
 	--button-comment: rgba(0, 0, 255, 0.2);
 	--button-heart: rgba(255, 0, 0, 0.2);
+	--button-heart-clicked: rgba(255, 0, 0, 0.8);
 	--button-retweet: rgba(0, 255, 0, 0.2);
+	--button-retweet-clicked: rgba(0, 210, 0, 0.8);
 }
 
 body {
-    background-color: var(--twitter-blue);
+	background-color: var(--twitter-blue);
 	display: flex;
 	justify-content: center;
+	margin-top: 2rem;
 }
 
 h1 {
@@ -93,6 +96,7 @@ button i, button span {
 	display: flex;
 	flex-direction: column;
 	border-radius: 0.5rem;
+	border: solid black 0.2rem;
 }
 
 .title-container {
@@ -108,7 +112,7 @@ button i, button span {
 	flex: 1;
 }
 
-/* POST CONTAINER */
+/* NEW POST CREATING CONTAINER */
 
 .post-form-container {
 	display: flex;
@@ -166,7 +170,7 @@ button i, button span {
 	background-color: var(--lightGrey);
 }
 
-/* CREATED POSTS CONTAINERS */
+/* POST CONTAINERS */
 
 .post {
 	display: flex;
@@ -238,8 +242,29 @@ button i, button span {
 	border-radius: 50%;
 }
 
+.post-button-container.like button.active i {
+	color: var(--button-heart-clicked);
+	font-weight: bold;
+}
+
+.post-button-container.retweet button.active i {
+	color: var(--button-retweet-clicked);
+	font-weight: bold;
+}
+
+.post-action-container {
+	padding-left: 4rem;
+	font-size: 1rem;
+	color: var(--greyText);
+	text-decoration: underline;
+	margin-bottom: var(--spacing);
+}
 
 /* LOGIN AND REGISTER PAGE */
+
+.login, .register {
+	border: solid black 0.2rem;
+}
 
 .login h2, .register h2 {
 	margin-bottom: 1.5rem;
