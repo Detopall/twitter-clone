@@ -79,3 +79,20 @@ function outputPosts(results, container){
 		container.insertAdjacentHTML("afterbegin", `<p>No content to show.</p>`);
 	}
 }
+
+function outputPostsWithReplies(results, container){
+	container.innerHTML = "";
+
+	if(results.replyTo && results.replyTo._id){
+		const html = createPostHtml(results.replyTo);
+		container.insertAdjacentHTML("afterbegin", html);
+	}
+
+	const mainPostHtml = createPostHtml(results.postData);
+	container.insertAdjacentHTML("afterbegin", mainPostHtml);
+
+	results.replies.forEach(res => {
+		const html = createPostHtml(res);
+		container.insertAdjacentHTML("beforeend", html);
+	});
+}

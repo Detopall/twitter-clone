@@ -41,8 +41,18 @@ exports.getPosts = async (req, res) => {
 exports.getPost = async (req, res) => {
 	try {
 		const postId = req.params.id;
-		const results = await findPosts({_id: postId});
-		res.send(results[0]); //only one result, so first index
+		const postData = await findPosts({_id: postId});
+
+		const results = {
+			postData: postData[0]
+		}
+
+		if (postData.replyTo){
+			results.replyTo = postData.replyTo;
+		}
+		results.replies = await findPosts( {replyTo: postId} );
+		res.send(results);
+
 	} catch(err) {
 		console.error(err);
 		res.sendStatus(500);

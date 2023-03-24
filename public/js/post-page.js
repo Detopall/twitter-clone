@@ -9,10 +9,9 @@ async function getPosts(){
 
 		const response = await fetch(`/api/posts/${POST_ID}`);
 		const jsonData = await response.json();
-		outputPosts(jsonData, postsContainer);
+		outputPostsWithReplies(jsonData, postsContainer);
 	} catch (err) {
 		console.error("Something went wrong: ", err);
 	}
 }
-
 
