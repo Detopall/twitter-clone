@@ -24,9 +24,19 @@ exports.sendPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
 	try {
-		const posts = await TwitterPost.find().populate('postedBy').populate("retweetData");
-		const populatedPosts = await TwitterPost.populate(posts, {path: "retweetData.postedBy"});
-		res.send(populatedPosts);
+		const results = await findPosts({});
+		res.send(results);
+	} catch(err) {
+		console.error(err);
+		res.sendStatus(500);
+	}
+}
+
+exports.getPost = async (req, res) => {
+	try {
+		const postId = req.params.id;
+		const results = await findPosts({_id: postId});
+		res.send(results[0]); //only one result, so first index
 	} catch(err) {
 		console.error(err);
 		res.sendStatus(500);
@@ -112,4 +122,15 @@ exports.retweetPost = async (req, res) => {
 			res.sendStatus(500)});
 	
 	return res.send(post);
+}
+
+
+async function findPosts(filter) {
+	try {
+		const posts = await TwitterPost.find(filter).populate('postedBy').populate("retweetData");
+		const populatedPosts = await TwitterPost.populate(posts, {path: "retweetData.postedBy"});
+		return populatedPosts;
+	} catch(err) {
+		console.error(err);
+	}
 }

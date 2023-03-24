@@ -101,7 +101,7 @@ function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retwe
 					</div>
 
 					<div class="post-button-container">
-						<button data-bs-toggle="modal" data-bs-target="#reply-modal">
+						<button class="reply-button" data-bs-toggle="modal" data-bs-target="#reply-modal">
 							<i class="far fa-comment"></i>
 						</button>
 					</div>
