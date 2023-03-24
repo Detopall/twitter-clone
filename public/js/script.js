@@ -33,3 +33,21 @@ function getRootIdElement(element){
 	const root = isRoot ? element : element.closest(".post");
 	return root.getAttribute("data-id");
 }
+
+
+function outputPosts(results, container){
+	container.innerHTML = "";
+
+	if (!Array.isArray(results)){
+		results = [results];
+	}
+
+	results.forEach(res => {
+		const html = createPostHtml(res);
+		container.insertAdjacentHTML("afterbegin", html);
+	});
+
+	if (results.length === 0){
+		container.insertAdjacentHTML("afterbegin", `<p>No content to show.</p>`);
+	}
+}

@@ -127,6 +127,14 @@ button i, button span {
 	padding: var(--spacing) 0 0 0;
 }
 
+.modal .post {
+	padding: 0 0 var(--spacing) 0;
+}
+
+.modal-title {
+	font-weight: bold;
+}
+
 .modal .post-form-container .user-img-container {
 	margin-right: -3.5rem;
 	margin-top: 0.65rem;
@@ -140,7 +148,7 @@ button i, button span {
 .user-img-container img {
 	width: 100%;
 	border-radius: 50%;
-	background-color: black;
+	border: solid black 0.01rem;
 }
 
 

@@ -9,10 +9,15 @@ document.addEventListener("click", async (e) => {
 
 
 async function getPost(postId){
+	const ogPostContainer = document.querySelector("#original-post-container");
+	if (!ogPostContainer) return;
+	ogPostContainer.innerHTML = "";
+
 	try {
 		const response = await fetch(`/api/posts/${postId}`);
 		const jsonData = await response.json();
-		console.log(jsonData);
+		
+		outputPosts(jsonData, ogPostContainer);
 	} catch (err) {
 		console.error("Something went wrong: ", err);
 	}

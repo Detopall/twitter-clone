@@ -10,7 +10,7 @@ document.addEventListener("click", async (e) => {
 	const postData = await sendRetweet(postId);
 	if (!postData) return;
 
-	retweetButton.querySelector("span").innerHTML = `${postData.retweetUsers.length}` || "";
+	retweetButton.querySelector("span").innerHTML = postData.retweetUsers.length || "";
 	if (postData.retweetUsers.includes(USER_LOGGED_IN._id)){
 		retweetButton.classList.add("active");
 	} else {
