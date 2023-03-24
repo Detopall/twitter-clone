@@ -13,6 +13,16 @@ document.addEventListener("keyup", (e) => {
 	}
 });
 
+document.addEventListener("click", (e) => {
+	if (!e.target.closest(".post")) return;
+
+	const element = e.target;
+	const postId = getRootIdElement(element);
+	if (!postId || e.target.matches("button")) return;
+
+	window.location.href = `/post/${postId}`;
+});
+
 
 function textAreaBehaviour(textarea, button){
 	if (!textarea) return;	

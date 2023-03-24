@@ -19,6 +19,7 @@ app.use(express.urlencoded({extended: true})); //same as above
 app.engine('.hbs', exphbs.engine({defaultLayout: "main", extname: ".hbs",  partialsDir: __dirname + '/views/partials'}));
 
 app.set('view engine', '.hbs');
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(session({
@@ -34,8 +35,7 @@ if (process.env.NODE_ENV === "development"){
 
 app.use('/', require('./routes/routes'));
 app.use('/', require('./routes/api/api'));
-
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', require('./routes/post-routes'));
 
 
 app.listen(PORT, () => console.log("server listening on port: ", PORT));
