@@ -13,26 +13,10 @@ document.addEventListener("click", async (e) => {
 	if (e.target.matches("#submit-post-button")){
 		const submitButton = document.querySelector("#submit-post-button");
 		const textarea = document.querySelector("#post-textarea");
-		if (!textarea || !submitButton) return;
-		
-		const value = textarea.value.trim();
+		const data = { content: textarea.value.trim() };
 
-		const data = {
-			content: value
-		}
-
-		try {
-			const response = await fetch("/api/posts", getOptionsPost(data, "POST"));
-			const jsonData = await response.json();
-			displayPost(jsonData);
-		} catch (err) {
-			console.error("Something went wrong: ", err);
-		}
-		
-		// manually clearing text will not trigger the keyup event, so manually setting button disabled
-		textarea.value = "";
-		submitButton.disabled = true;
-
+		const jsonData = await createPost(textarea, submitButton, data);
+		displayPost(jsonData);
 	}
 });
 

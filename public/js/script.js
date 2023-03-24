@@ -34,6 +34,24 @@ function getRootIdElement(element){
 	return root.getAttribute("data-id");
 }
 
+async function createPost(textarea, submitButton, data){
+	if (!textarea || !submitButton) return;
+	try {
+		const response = await fetch("/api/posts", getOptionsPost(data, "POST"));
+		const jsonData = await response.json();
+		textarea.value = "";
+		submitButton.disabled = true;
+
+		if (jsonData.replyTo){
+			location.reload();
+		}
+
+		return jsonData;
+	} catch (err) {
+		console.error("Something went wrong: ", err);
+	}		
+}
+
 
 function outputPosts(results, container){
 	container.innerHTML = "";
