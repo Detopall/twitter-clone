@@ -13,26 +13,10 @@ document.addEventListener("click", async (e) => {
 	if (e.target.matches("#submit-post-button")){
 		const submitButton = document.querySelector("#submit-post-button");
 		const textarea = document.querySelector("#post-textarea");
-		if (!textarea || !submitButton) return;
-		
-		const value = textarea.value.trim();
+		const data = { content: textarea.value.trim() };
 
-		const data = {
-			content: value
-		}
-
-		try {
-			const response = await fetch("/api/posts", getOptionsPost(data, "POST"));
-			const jsonData = await response.json();
-			displayPost(jsonData);
-		} catch (err) {
-			console.error("Something went wrong: ", err);
-		}
-		
-		// manually clearing text will not trigger the keyup event, so manually setting button disabled
-		textarea.value = "";
-		submitButton.disabled = true;
-
+		const jsonData = await createPost(textarea, submitButton, data);
+		displayPost(jsonData);
 	}
 });
 
@@ -63,10 +47,20 @@ function createPostHtml(postData){
 		retweetText = `<span>Retweeted by: <a href="/profile/${retweetedBy}">@${retweetedBy}</a></span>`;
 	}
 
-	return renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText);
+	let replyFlag = "";
+
+	if (postData.replyTo){
+		const replyToUsername = postData.replyTo.postedBy.username;
+		replyFlag = `<div class="reply-flag">Replying to
+						<a href="/profile/${replyToUsername}"> @${replyToUsername}</a>
+					</div>`;	
+	}
+
+	
+	return renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText, replyFlag);
 }
 
-function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText){
+function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText, replyFlag){
 	return `
 	<div class="post" data-id='${postData._id}'>
 		<div class="post-action-container">${retweetText}</div>
@@ -82,6 +76,7 @@ function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retwe
 					<span class="username">@${postData.postedBy.username}</span>
 					<span class="date">${timestamp}</span>
 				</div>
+				${replyFlag}
 				<div class="post-body">
 					<span>${postData.content}</span>
 				</div>
@@ -101,7 +96,7 @@ function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retwe
 					</div>
 
 					<div class="post-button-container">
-						<button>
+						<button class="reply-button" data-bs-toggle="modal" data-bs-target="#reply-modal">
 							<i class="far fa-comment"></i>
 						</button>
 					</div>

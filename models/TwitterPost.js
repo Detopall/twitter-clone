@@ -10,7 +10,9 @@ const PostSchema = new mongoose.Schema({
 	pinned: Boolean,
 	likes: [{type: Schema.Types.ObjectId, ref: "TwitterUser"}],
 	retweetUsers: [{type: Schema.Types.ObjectId, ref: "TwitterUser"}],
-	retweetData: {type: Schema.Types.ObjectId, ref: "TwitterPost"}
+	retweetData: {type: Schema.Types.ObjectId, ref: "TwitterPost"},
+	replyTo: {type: Schema.Types.ObjectId, ref: "TwitterPost"}
+	
 }, {timestamps: true});
 
 

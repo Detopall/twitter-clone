@@ -122,6 +122,24 @@ button i, button span {
 	justify-content: space-around;
 }
 
+.modal .post-form-container {
+	border: none;
+	padding: var(--spacing) 0 0 0;
+}
+
+.modal .post {
+	padding: 0 0 var(--spacing) 0;
+}
+
+.modal-title {
+	font-weight: bold;
+}
+
+.modal .post-form-container .user-img-container {
+	margin-right: -3.5rem;
+	margin-top: 0.65rem;
+}
+
 .user-img-container {
 	width: 3rem;
 	height: 3rem;
@@ -130,7 +148,7 @@ button i, button span {
 .user-img-container img {
 	width: 100%;
 	border-radius: 50%;
-	background-color: black;
+	border: solid black 0.01rem;
 }
 
 
@@ -259,6 +277,15 @@ button i, button span {
 	text-decoration: underline;
 	margin-bottom: var(--spacing);
 }
+
+.reply-flag {
+	margin-bottom: 0.1rem;
+}
+
+.reply-flag a {
+	color: var(--twitter-blue);
+}
+
 
 /* LOGIN AND REGISTER PAGE */
 

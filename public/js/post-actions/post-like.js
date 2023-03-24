@@ -10,7 +10,7 @@ document.addEventListener("click", async (e) => {
 	const postData = await sendLike(postId);
 	if (!postData) return;
 
-	likeButton.querySelector("span").innerHTML = `${postData.likes.length}` || "";
+	likeButton.querySelector("span").innerHTML = postData.likes.length || "";
 	if (postData.likes.includes(USER_LOGGED_IN._id)){
 		likeButton.classList.add("active");
 	} else {
