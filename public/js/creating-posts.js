@@ -29,7 +29,7 @@ function displayPost(postData){
 	postContainer.insertAdjacentHTML("afterbegin", html);
 }
 
-function createPostHtml(postData){
+function createPostHtml(postData, largeFont=false){
 	if (!postData) return;
 
 	const displayName = `${postData.postedBy.firstname} ${postData.postedBy.lastname}`;
@@ -56,13 +56,14 @@ function createPostHtml(postData){
 					</div>`;	
 	}
 
-	
-	return renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText, replyFlag);
+	const largeFontClass = largeFont ? "largeFont" : "";
+
+	return renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText, replyFlag, largeFontClass);
 }
 
-function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText, replyFlag){
+function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText, replyFlag, largeFontClass){
 	return `
-	<div class="post" data-id='${postData._id}'>
+	<div class="post ${largeFontClass}" data-id='${postData._id}'>
 		<div class="post-action-container">${retweetText}</div>
 		<div class="main-content-container">
 			<div class="user-img-container">

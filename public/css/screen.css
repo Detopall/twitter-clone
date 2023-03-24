@@ -286,6 +286,11 @@ button i, button span {
 	color: var(--twitter-blue);
 }
 
+.post.largeFont .post-body, .post.largeFont .post-footer {
+	font-size: 1.4rem;
+
+}
+
 
 /* LOGIN AND REGISTER PAGE */
 

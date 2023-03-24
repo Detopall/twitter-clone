@@ -88,7 +88,7 @@ function outputPostsWithReplies(results, container){
 		container.insertAdjacentHTML("afterbegin", html);
 	}
 
-	const mainPostHtml = createPostHtml(results.postData);
+	const mainPostHtml = createPostHtml(results.postData, true);
 	container.insertAdjacentHTML("afterbegin", mainPostHtml);
 
 	results.replies.forEach(res => {
