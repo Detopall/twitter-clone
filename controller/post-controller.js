@@ -133,9 +133,12 @@ exports.retweetPost = async (req, res) => {
 
 async function findPosts(filter) {
 	try {
-		const posts = await TwitterPost.find(filter).populate('postedBy').populate("retweetData");
-		const populatedPosts = await TwitterPost.populate(posts, {path: "retweetData.postedBy"});
-		return populatedPosts;
+		const posts = await TwitterPost.find(filter).populate('postedBy').populate("retweetData").populate("replyTo");
+		
+		const populatedReply = await TwitterPost.populate(posts, {path: "replyTo.postedBy"});
+		const populatedRetweetData = await TwitterPost.populate(populatedReply, {path: "retweetData.postedBy"});
+
+		return populatedRetweetData;
 	} catch(err) {
 		console.error(err);
 	}

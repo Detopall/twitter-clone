@@ -47,10 +47,20 @@ function createPostHtml(postData){
 		retweetText = `<span>Retweeted by: <a href="/profile/${retweetedBy}">@${retweetedBy}</a></span>`;
 	}
 
-	return renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText);
+	let replyFlag = "";
+
+	if (postData.replyTo){
+		const replyToUsername = postData.replyTo.postedBy.username;
+		replyFlag = `<div class="reply-flag">Replying to
+						<a href="/profile/${replyToUsername}"> @${replyToUsername}</a>
+					</div>`;	
+	}
+
+	
+	return renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText, replyFlag);
 }
 
-function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText){
+function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText, replyFlag){
 	return `
 	<div class="post" data-id='${postData._id}'>
 		<div class="post-action-container">${retweetText}</div>
@@ -66,6 +76,7 @@ function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retwe
 					<span class="username">@${postData.postedBy.username}</span>
 					<span class="date">${timestamp}</span>
 				</div>
+				${replyFlag}
 				<div class="post-body">
 					<span>${postData.content}</span>
 				</div>

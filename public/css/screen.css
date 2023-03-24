@@ -278,6 +278,15 @@ button i, button span {
 	margin-bottom: var(--spacing);
 }
 
+.reply-flag {
+	margin-bottom: 0.1rem;
+}
+
+.reply-flag a {
+	color: var(--twitter-blue);
+}
+
+
 /* LOGIN AND REGISTER PAGE */
 
 .login, .register {
