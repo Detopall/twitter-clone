@@ -122,6 +122,16 @@ button i, button span {
 	justify-content: space-around;
 }
 
+.modal .post-form-container {
+	border: none;
+	padding: var(--spacing) 0 0 0;
+}
+
+.modal .post-form-container .user-img-container {
+	margin-right: -3.5rem;
+	margin-top: 0.65rem;
+}
+
 .user-img-container {
 	width: 3rem;
 	height: 3rem;
