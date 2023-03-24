@@ -11,7 +11,7 @@ router.get('/post/:id', middleware.requireLogin, (req, res) => {
 		userJS: JSON.stringify(req.session.user),
 		showNav: true,
 		isPostPage: true,
-		postId: req.params.id
+		postId: JSON.stringify(req.params.id)
 	}
 	res.render("post-page", payload);
 });
