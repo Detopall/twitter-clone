@@ -52,7 +52,7 @@ function renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retwe
 		<div class="post-action-container">${retweetText}</div>
 		<div class="main-content-container">
 			<div class="user-img-container">
-				<img src="../${postData.postedBy.profilePic}" alt='profile-pic'>
+				<img src="../../${postData.postedBy.profilePic}" alt='profile-pic'>
 			</div>
 			<div class="post-content-container">
 				<div class="header">
