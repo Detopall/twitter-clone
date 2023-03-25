@@ -303,6 +303,13 @@ button i, button span {
 
 }
 
+#delete-post-text {
+	font-weight: bold;
+}
+
+.delete-post-button:hover {
+	color: red;
+}
 
 /* LOGIN AND REGISTER PAGE */
 

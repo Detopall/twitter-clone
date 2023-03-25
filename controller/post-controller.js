@@ -140,6 +140,16 @@ exports.retweetPost = async (req, res) => {
 	return res.send(post);
 }
 
+exports.deletePost = async (req, res) => {
+	const postId = req.params.id;
+	await TwitterPost.findByIdAndDelete(postId)
+		.then(res.sendStatus(202))
+		.catch(err => {
+			console.error(err);
+			res.sendStatus(500);
+		});
+}
+
 
 async function findPosts(filter) {
 	try {

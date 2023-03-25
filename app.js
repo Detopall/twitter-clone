@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const exphbs = require("express-handlebars");
 const path = require("path");
 const session = require("express-session");
+const middleware = require("./middleware");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,9 +34,10 @@ if (process.env.NODE_ENV === "development"){
 	app.use(morgan('dev'));
 }
 
-app.use('/', require('./routes/routes'));
+app.use('/', require('./routes/home-auth-routes'));
 app.use('/', require('./routes/api/api'));
-app.use('/', require('./routes/post-routes'));
+app.use('/', middleware.requireLogin, require('./routes/post-routes'));
+app.use('/', middleware.requireLogin, require('./routes/profile-routes'));
 
 
 app.listen(PORT, () => console.log("server listening on port: ", PORT));
