@@ -21,7 +21,6 @@ document.addEventListener("click", async (e) => {
 });
 
 function displayPost(postData){
-	console.log(postData);
 	const html = createPostHtml(postData);
 	const postContainer = document.querySelector(".post-container");
 	if (!postContainer) return;

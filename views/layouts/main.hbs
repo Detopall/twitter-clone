@@ -27,10 +27,15 @@
 
 	<div class="main-wrapper col-10 col-md-8 col-lg-6">
 		{{{body}}}
+		{{#if isHome}}
+			{{{_sections.home-page}}}
+		{{/if}}
+		{{#if isProfilePage}}
+			{{{_sections.profile-page}}}
+		{{/if}}
 	</div>
 
 	<div class="d-none d-md-block col-md-2 col-lg-4"></div>
-	
 	{{else}}
 		{{{body}}}
 	{{/if}}

@@ -6,7 +6,6 @@ document.addEventListener("click", async (e) => {
 	const retweetButton = e.target.closest(".retweet-button");
 	const postId = getRootIdElement(retweetButton);
 	if (!postId) return;
-
 	const postData = await sendRetweet(postId);
 	if (!postData) return;
 

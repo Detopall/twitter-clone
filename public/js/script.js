@@ -70,14 +70,14 @@ function outputPosts(results, container){
 		results = [results];
 	}
 
+	if (results.length === 0){
+		container.insertAdjacentHTML("afterbegin", `<p id="no-posts">No content to show.</p>`);
+	}
+
 	results.forEach(res => {
 		const html = createPostHtml(res);
 		container.insertAdjacentHTML("afterbegin", html);
-	});
-
-	if (results.length === 0){
-		container.insertAdjacentHTML("afterbegin", `<p>No content to show.</p>`);
-	}
+	});	
 }
 
 function outputPostsWithReplies(results, container){

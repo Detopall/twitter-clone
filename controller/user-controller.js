@@ -5,7 +5,6 @@ const bcrypt = require('bcryptjs');
 
 
 exports.createUser = async (req, res) => {
-	console.log(req.body);
 	if (await usernameAlreadyExists(req)) {
 		const errorMsg = "Username already in use";
 		return res.render("register", {errorMsg});
@@ -38,7 +37,6 @@ exports.loginUser = async (req, res) => {
 	}
 
 	try {
-		console.log(`${req.body.username} is logged in`);
 		const loggedInUser = await User.find({"username": req.body.username}, {"password": 0});
 		
 		//logged in user returns a list of one user

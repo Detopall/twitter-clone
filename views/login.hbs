@@ -1,4 +1,8 @@
-<div class="wrapper auth">
+<div class="wrapper-auth">
+	<div class="logo-container">
+		<img src="images/logo.png" alt="logo">
+		<h3>Welcome to Crow Chirp!</h3>
+	</div>
 	<div class="login">
 		<h2> Login </h2>
 
@@ -7,8 +11,8 @@
 		{{/if}}
 
 		<form method="post">
-			<input type="text" name="username" id="username" placeholder="Username" required autocomplete="off" value="denis">
-			<input type="password" name="password" id="password" placeholder="Password" required value="denis">
+			<input type="text" name="username" id="username" placeholder="Username" required autocomplete="off">
+			<input type="password" name="password" id="password" placeholder="Password" required>
 			<input type="submit" value="Login" id="login">
 		</form>
 		<a href="/register"> Don't have an account? Register! </a>

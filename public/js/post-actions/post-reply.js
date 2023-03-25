@@ -22,8 +22,7 @@ document.addEventListener("click", async (e) => {
 		replyTo: submitButton.getAttribute("data-id")
 	};
 
-	const jsonData = await createPost(textarea, submitButton, data);
-	console.log(jsonData);
+	await createPost(textarea, submitButton, data);
 });
 
 async function getPost(postId){
