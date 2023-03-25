@@ -216,6 +216,18 @@ button i, button span {
 	font-weight: bold;
 }
 
+.post-content-container .header {
+	display: flex;
+}
+
+.post-content-container .header .date {
+	flex: 1;
+}
+
+.delete-post-button {
+	margin-right: var(--spacing);
+}
+
 .header a:hover {
 	text-decoration: underline;
 }

@@ -32,7 +32,7 @@ function deleteButtonHtml(postData){
 	let deleteButton = "";
 	if (postData.postedBy._id === USER_LOGGED_IN._id){
 		deleteButton = `
-			<button data-id="${postData._id}" data-bs-toggle="modal" data-bs-target="#delete-post-modal">
+			<button data-id="${postData._id}" data-bs-toggle="modal" data-bs-target="#delete-post-modal" class="delete-post-button">
 				<i class="fa-regular fa-trash-can"></i>
 			</button>`;
 	}
