@@ -26,6 +26,7 @@ app.engine('.hbs', exphbs.engine({defaultLayout: "main", extname: ".hbs",  parti
   }}));
 
 app.set('view engine', '.hbs');
+app.use('/favicon.ico', express.static('static/images/favicon.ico'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
