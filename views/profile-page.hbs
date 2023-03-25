@@ -1,0 +1,31 @@
+<div class="title-container">
+	<h1> {{pageTitle}}</h1>
+</div>
+
+<div class="profile">
+	{{#unless profileUser}}
+		<p class="user-not-found">Check the username after the "/profile/" in the URL. This user does not exist.</p>
+	{{else}}
+		<div class="profile-header-container">
+			<div class="cover-photo-container">
+
+				<div class="user-img-container">
+					<img src=../{{profileUser.profilePic}} alt="user profile img">
+				</div>
+			</div>
+			<div class="user-details-container">
+				<span class="display-name">{{profileUser.firstname}} {{profileUser.lastname}}</span>
+				<span class="username">@{{profileUser.username}}</span>
+			</div>
+		</div>
+		<div class="tabs-container"></div>
+		<div class="post-container"></div>
+		{{> post-actions-modal}}
+	{{/unless}}
+</div>
+
+
+{{#section 'profile-page'}}
+	<script> const PROFILE_USER = {{{profileUserJS}}}; const SELECTED_TAB = {{{selectedTab}}} </script>
+	<script defer src="/js/profile-page.js"></script>
+{{/section}}

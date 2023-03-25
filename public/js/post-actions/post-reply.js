@@ -22,8 +22,7 @@ document.addEventListener("click", async (e) => {
 		replyTo: submitButton.getAttribute("data-id")
 	};
 
-	const jsonData = await createPost(textarea, submitButton, data);
-	console.log(jsonData);
+	await createPost(textarea, submitButton, data);
 });
 
 async function getPost(postId){
@@ -35,7 +34,7 @@ async function getPost(postId){
 		const response = await fetch(`/api/posts/${postId}`);
 		const jsonData = await response.json();
 		
-		outputPosts(jsonData, ogPostContainer);
+		outputPosts(jsonData.postData, ogPostContainer);
 	} catch (err) {
 		console.error("Something went wrong: ", err);
 	}

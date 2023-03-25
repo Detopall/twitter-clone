@@ -19,7 +19,7 @@ exports.sendPost = async (req, res) => {
 	const post = new TwitterPost(postData);
 	try {
 		await post.save();
-		const newPost = await TwitterPost.findById(post._id).populate('postedBy');
+		const newPost = await TwitterPost.findById(post._id).populate("postedBy");
 		return res.send(newPost);
 	} catch(err){
 		console.error(err);
@@ -30,7 +30,13 @@ exports.sendPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
 	try {
-		const results = await findPosts({});
+		const searchObj = req.query;
+		if (searchObj.isReply){
+			const isReply = searchObj.isReply === "true";
+			searchObj.replyTo = { $exists: isReply };
+			delete searchObj.isReply;
+		}
+		const results = await findPosts(searchObj);
 		res.send(results);
 	} catch(err) {
 		console.error(err);
@@ -41,8 +47,18 @@ exports.getPosts = async (req, res) => {
 exports.getPost = async (req, res) => {
 	try {
 		const postId = req.params.id;
-		const results = await findPosts({_id: postId});
-		res.send(results[0]); //only one result, so first index
+		const postData = await findPosts({_id: postId});
+
+		const results = {
+			postData: postData[0]
+		}
+
+		if (postData.replyTo){
+			results.replyTo = postData.replyTo;
+		}
+		results.replies = await findPosts( {replyTo: postId} );
+		res.send(results);
+
 	} catch(err) {
 		console.error(err);
 		res.sendStatus(500);
@@ -130,15 +146,32 @@ exports.retweetPost = async (req, res) => {
 	return res.send(post);
 }
 
+exports.deletePost = async (req, res) => {
+	const postId = req.params.id;
+	try {
+	  // Find the post by id
+	  const post = await TwitterPost.findById(postId);
+	  if (!post) {
+		return res.status(404).send({ error: 'Post not found' });
+	  }
+	  // Delete the post and all retweets
+	  await TwitterPost.deleteMany({ $or: [{ _id: post._id }, { retweetData: post._id }, {replyTo: post._id}] });
+	  res.sendStatus(202);
+	} catch (err) {
+	  console.error(err);
+	  res.sendStatus(500);
+	}
+  };
+
 
 async function findPosts(filter) {
 	try {
-		const posts = await TwitterPost.find(filter).populate('postedBy').populate("retweetData").populate("replyTo");
+		let results = await TwitterPost.find(filter).populate("postedBy").populate("retweetData").populate("replyTo");
 		
-		const populatedReply = await TwitterPost.populate(posts, {path: "replyTo.postedBy"});
-		const populatedRetweetData = await TwitterPost.populate(populatedReply, {path: "retweetData.postedBy"});
+		results = await TwitterUser.populate(results, {path: "retweetData.postedBy"});
+		results = await TwitterUser.populate(results, {path: "replyTo.postedBy"});
 
-		return populatedRetweetData;
+		return results;
 	} catch(err) {
 		console.error(err);
 	}

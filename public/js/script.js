@@ -13,6 +13,16 @@ document.addEventListener("keyup", (e) => {
 	}
 });
 
+document.addEventListener("click", (e) => {
+	if (!e.target.closest(".post")) return;
+
+	const element = e.target;
+	const postId = getRootIdElement(element);
+	if (!postId || e.target.matches("button")) return;
+
+	window.location.href = `/post/${postId}`;
+});
+
 
 function textAreaBehaviour(textarea, button){
 	if (!textarea) return;	
@@ -60,12 +70,29 @@ function outputPosts(results, container){
 		results = [results];
 	}
 
+	if (results.length === 0){
+		container.insertAdjacentHTML("afterbegin", `<p id="no-posts">No content to show.</p>`);
+	}
+
 	results.forEach(res => {
 		const html = createPostHtml(res);
 		container.insertAdjacentHTML("afterbegin", html);
-	});
+	});	
+}
 
-	if (results.length === 0){
-		container.insertAdjacentHTML("afterbegin", `<p>No content to show.</p>`);
+function outputPostsWithReplies(results, container){
+	container.innerHTML = "";
+
+	if(results.replyTo && results.replyTo._id){
+		const html = createPostHtml(results.replyTo);
+		container.insertAdjacentHTML("afterbegin", html);
 	}
+
+	const mainPostHtml = createPostHtml(results.postData, true);
+	container.insertAdjacentHTML("afterbegin", mainPostHtml);
+
+	results.replies.forEach(res => {
+		const html = createPostHtml(res);
+		container.insertAdjacentHTML("beforeend", html);
+	});
 }

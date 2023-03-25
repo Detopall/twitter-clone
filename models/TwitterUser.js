@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
 	},
 	profilePic: {
 		type: String,
-		default: "/images/profilePic.png"
+		default: "images/profilePic.png"
 	},
 	likes: [{type: Schema.Types.ObjectId, ref: "TwitterPost"}],
 	retweets: [{type: Schema.Types.ObjectId, ref: "TwitterPost"}]
