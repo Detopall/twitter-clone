@@ -3,7 +3,7 @@
 </div>
 
 	{{#unless profileUser}}
-		<h1> User not found </h1>
+		<p class="user-not-found">Check the username after the "/profile/" in the URL. This user does not exist.</p>
 	{{else}}
 		{{> post-actions-modal}}
 		<div class="post-container"></div>

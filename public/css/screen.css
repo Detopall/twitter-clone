@@ -311,6 +311,12 @@ button i, button span {
 	color: red;
 }
 
+.user-not-found {
+	margin: var(--spacing);
+	background-color: orange;
+	font-weight: bold;
+}
+
 /* LOGIN AND REGISTER PAGE */
 
 .login, .register {
