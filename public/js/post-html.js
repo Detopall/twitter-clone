@@ -16,15 +16,17 @@ function deleteButtonHtml(postData){
 function createPostHtml(postData, largeFont=false){
 	if (!postData) return;
 
-	const displayName = `${postData.postedBy.firstname} ${postData.postedBy.lastname}`;
+	const isRetweet = postData.retweetData !== undefined;
+	const retweetedBy = isRetweet ? postData.postedBy.username : null;
+	postData = isRetweet ? postData.retweetData : postData;
+
+	const postedBy = postData.postedBy;
+
+	const displayName = `${postedBy.firstname} ${postedBy.lastname}`;
 	const timestamp = timeSince(postData.createdAt);
 
 	const likedBtnActiveClass = postData.likes.includes(USER_LOGGED_IN._id) ? "active" : "";
 	const retweetBtnActiveClass = postData.retweetUsers.includes(USER_LOGGED_IN._id) ? "active": "";
-
-	const isRetweet = postData.retweetData !== undefined;
-	const retweetedBy = isRetweet ? postData.postedBy.username : null;
-	postData = isRetweet ? postData.retweetData : postData;
 
 	let retweetText = "";
 	if (isRetweet){
@@ -32,14 +34,13 @@ function createPostHtml(postData, largeFont=false){
 	}
 
 	let replyFlag = "";
-	if (postData.replyTo){
+	if (postData.replyTo && postData.replyTo._id){
 		const replyToUsername = postData.replyTo.postedBy.username;
 		replyFlag = `<div class="reply-flag">Replying to
 						<a href="/profile/${replyToUsername}"> @${replyToUsername}</a>
 					</div>`;
 	}
 	
-
 	const largeFontClass = largeFont ? "largeFont" : "";
 	return renderHtml(postData, displayName, timestamp, likedBtnActiveClass, retweetBtnActiveClass, retweetText, replyFlag, largeFontClass);
 }
