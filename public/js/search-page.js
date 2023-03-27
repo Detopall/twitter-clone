@@ -34,15 +34,16 @@ async function addingPostsOrUsers(searchInput) {
 }
 
 async function loadSearchUsers(postsContainer, searchInput) {
-	const params = new URLSearchParams({ search: searchInput, profiles: "true" });
+	const params = new URLSearchParams({ search: searchInput });
 	console.log(params);
-	//const response = await fetch("/api/posts?" + params);
-	//const jsonData = await response.json();
+	const response = await fetch("/api/users?" + params);
+	const jsonData = await response.json();
+	console.log(jsonData);
 	//outputPosts(jsonData, postsContainer);
 }
 
 async function loadSearchPosts(postsContainer, searchInput) {
-	const params = new URLSearchParams({ search: searchInput, profiles: "false" });
+	const params = new URLSearchParams({ search: searchInput });
 	console.log(params);
 	const response = await fetch("/api/posts?" + params);
 	const jsonData = await response.json();
