@@ -15,7 +15,7 @@ mainProfilePic.addEventListener("click", (e) => {
 	imgPickerContainer.innerHTML = "";
 	let html = "";
 	IMG_NAMES.forEach(img => {
-		html += `<img src="../images/${img}.png" alt="${img}-profile">`;
+		html += `<img src="../../images/${img}.png" alt="${img}-profile">`;
 	});
 	imgPickerContainer.insertAdjacentHTML("beforeend", html);
 });
