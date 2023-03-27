@@ -45,6 +45,7 @@ app.use('/', require('./routes/home-auth-routes'));
 app.use('/', require('./routes/api/api'));
 app.use('/', middleware.requireLogin, require('./routes/post-routes'));
 app.use('/', middleware.requireLogin, require('./routes/profile-routes'));
+app.use('/', middleware.requireLogin, require('./routes/search-routes'));
 
 
 app.listen(PORT, () => console.log("server listening on port: ", PORT));

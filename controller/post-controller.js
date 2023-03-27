@@ -30,17 +30,27 @@ exports.sendPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
 	try {
-		const searchObj = req.query;
+		let searchObj = req.query;
 		if (searchObj.isReply){
 			const isReply = searchObj.isReply === "true";
 			searchObj.replyTo = { $exists: isReply };
 			delete searchObj.isReply;
+		}
+		if (searchObj.search){
+			searchObj = getSearchObjectSearch(searchObj);
 		}
 		const results = await findPosts(searchObj);
 		res.send(results);
 	} catch(err) {
 		console.error(err);
 		res.sendStatus(500);
+	}
+}
+
+function getSearchObjectSearch(searchObj){
+	console.log("Get Search: ", searchObj);
+	if (searchObj.profiles === "false"){
+		return { content: { $regex: searchObj.search, $options: 'i' } }
 	}
 }
 
