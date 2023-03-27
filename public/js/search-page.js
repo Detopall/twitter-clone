@@ -45,7 +45,6 @@ async function loadSearchUsers(userContainer, searchInput) {
 	const params = new URLSearchParams({ search: searchInput });
 	const response = await fetch("/api/users?" + params);
 	const jsonData = await response.json();
-	console.log(jsonData);
 	outputUsers(jsonData, userContainer);
 }
 
