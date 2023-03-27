@@ -5,7 +5,13 @@ const IMG_NAMES = ["car", "crow", "fish", "skater", "profilePic"];
 const mainProfilePic = document.querySelector(".profile-header-container img");
 const imgPickerContainer = document.querySelector("#img-picker-container");
 
+const h5Modal = document.querySelector("#img-picker-modal-label");
+
 mainProfilePic.addEventListener("click", (e) => {
+	if (PROFILE_USER._id !== USER._id) {changeModalUnauthorized("add"); return;};
+
+	changeModalUnauthorized("remove");
+
 	imgPickerContainer.innerHTML = "";
 	let html = "";
 	IMG_NAMES.forEach(img => {
@@ -25,6 +31,17 @@ imgPickerContainer.addEventListener("click", (e) => {
 	changeImgButton.disabled = false;
 	changeImgButton.setAttribute("img-uri", img.getAttribute("src").slice(3)); //remove '../'
 });
+
+function changeModalUnauthorized(action){
+	if (action === "add"){
+		imgPickerContainer.classList.add("unauthorized");
+		h5Modal.innerHTML = "Unauthorized to change profile image!";
+	} else {
+		imgPickerContainer.classList.remove("unauthorized");
+		h5Modal.innerHTML = "Choose an image";
+	}
+	
+}
 
 document.addEventListener("click", async (e) => {
 	const changeImgButton = document.querySelector("#submit-img-picker-button");
