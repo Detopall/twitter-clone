@@ -30,7 +30,7 @@ Once the app is running, you can register or log in using the provided forms. Af
 
 ---
 
-Please check out the following [YouTube video](https://www.youtube.com/watch?v=3k2u6msKie4) to see some features of the app in action.
+Please check out the following [YouTube video](https://www.youtube.com/watch?v=hQir822mva8) to see some features of the app in action.
 
 ## Technologies Used
 
