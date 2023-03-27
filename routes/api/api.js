@@ -16,4 +16,5 @@ router.post("/api/posts/:id/retweet", postsController.retweetPost);
 
 router.get("/api/users", userController.getUsers);
 
+router.put("/api/profile/image", userController.changeImage);
 module.exports = router;

@@ -79,6 +79,15 @@ function getSearchObjUsers(searchObj) {
 	  }
 }
 
+exports.changeImage = async (req, res) => {
+	if (!req.body.image) return res.sendStatus(400);
+	const userId = req.session.user._id;
+	const image = req.body.image;
+	req.session.user = await User.findOneAndUpdate({ _id: userId }, { profilePic: image });
+	req.session.user.profilePic = image;
+	return res.sendStatus(200);
+}
+
 async function findUsers(filter){
 	try {
 		return await User.find(filter).lean();
