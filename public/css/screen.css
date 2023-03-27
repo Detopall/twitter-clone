@@ -366,6 +366,27 @@ button i, button span {
 	border-bottom: 0.2rem solid blue;
 }
 
+/* SEARCH PAGE */
+
+.search-input-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: var(--spacing);
+}
+
+.search-input-container i {
+	margin-right: 1rem;
+	font-size: 1.5rem;
+}
+
+#search {
+	flex: 0.8;
+	margin-bottom: 0;
+	background-color: white;
+}
+
+
 /* LOGIN AND REGISTER PAGE */
 
 
