@@ -71,7 +71,7 @@ function outputPosts(results, container){
 	}
 
 	if (results.length === 0){
-		container.insertAdjacentHTML("afterbegin", `<p id="no-posts">No content to show.</p>`);
+		container.insertAdjacentHTML("afterbegin", `<p class="no-posts">No content to show.</p>`);
 	}
 
 	results.forEach(res => {
