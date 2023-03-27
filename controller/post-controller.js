@@ -37,7 +37,7 @@ exports.getPosts = async (req, res) => {
 			delete searchObj.isReply;
 		}
 		if (searchObj.search){
-			searchObj = getSearchObjectSearch(searchObj);
+			searchObj = { content: { $regex: searchObj.search, $options: 'i' } };
 		}
 		const results = await findPosts(searchObj);
 		res.send(results);
@@ -47,12 +47,6 @@ exports.getPosts = async (req, res) => {
 	}
 }
 
-function getSearchObjectSearch(searchObj){
-	console.log("Get Search: ", searchObj);
-	if (searchObj.profiles === "false"){
-		return { content: { $regex: searchObj.search, $options: 'i' } }
-	}
-}
 
 exports.getPost = async (req, res) => {
 	try {

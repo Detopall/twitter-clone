@@ -54,3 +54,35 @@ async function validPassword(req){
 	const user = await User.find({"username": req.body.username}).lean();
 	return bcrypt.compareSync(req.body.password, user[0].password);
 }
+
+exports.getUsers = async (req, res) => {
+	try {
+		let searchObj = req.query;
+		if (searchObj.search){
+			searchObj = getSearchObjUsers(searchObj);
+		}
+		const results = await findUsers(searchObj);
+		res.send(results);
+	} catch(err) {
+		console.error(err);
+		res.sendStatus(500);
+	}
+}
+
+function getSearchObjUsers(searchObj) {
+	return {
+		$or: [
+		  { username: { $regex: searchObj.search, $options: "i" } },
+		  { firstName: { $regex: searchObj.search, $options: "i" } },
+		  { lastName: { $regex: searchObj.search, $options: "i" } }
+		]
+	  }
+}
+
+async function findUsers(filter){
+	try {
+		return await User.find(filter).lean();
+	} catch(err) {
+		console.error(err);
+	}
+}

@@ -180,7 +180,7 @@ button i, button span {
 	flex-shrink: 0;
 }
 
-.post-container {
+.post-container, .user-container {
 	overflow-x: hidden;
   	overflow-y: auto;
 	height: 25rem;
@@ -298,7 +298,7 @@ button i, button span {
 	font-weight: bold;
 }
 
-#no-posts {
+.no-posts {
 	font-weight: bold;
 	text-align: center;
 	margin-top: 5rem;
@@ -377,6 +377,7 @@ button i, button span {
 
 .search .tabs-container {
 	display: flex;
+	border-bottom: solid lightgrey 0.1rem;
 }
 
 .search-input-container i {
@@ -388,6 +389,21 @@ button i, button span {
 	flex: 0.8;
 	margin-bottom: 0;
 	background-color: white;
+}
+
+.user {
+	display: flex;
+	padding: var(--spacing);
+	margin-bottom: var(--spacing);
+	border-bottom: solid lightgrey 0.1rem;
+}
+
+.user .user-img-container {
+	margin-right: 1rem;
+}
+
+.user .header {
+	margin-top: 0.5rem;
 }
 
 
@@ -456,4 +472,8 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #5999FF;
+}
+
+.hidden {
+	display: none;
 }

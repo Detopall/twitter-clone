@@ -7,6 +7,7 @@ const searchInput = document.querySelector("#search");
 searchInput.addEventListener("keyup", getSearch);
 
 createSearchTabs();
+addingPostsOrUsers(searchInput.value);
 
 function getSearch() {
 	addingPostsOrUsers(searchInput.value);
@@ -15,14 +16,21 @@ function getSearch() {
 async function addingPostsOrUsers(searchInput) {
 	try {
 	const postsContainer = document.querySelector(".post-container");
+	const userContainer = document.querySelector(".user-container");
 	if (!postsContainer) return;
 
 	if (searchTab === "profiles") {
+		postsContainer.classList.add("hidden");
+		userContainer.classList.remove("hidden");
+
 		document.querySelector("#search-profiles").classList.add("active");
 		document.querySelector("#search-posts").classList.remove("active");
 
-		await loadSearchUsers(postsContainer, searchInput);
+		await loadSearchUsers(userContainer, searchInput);
 	} else {
+		postsContainer.classList.remove("hidden");
+		userContainer.classList.add("hidden");
+
 		document.querySelector("#search-profiles").classList.remove("active");
 		document.querySelector("#search-posts").classList.add("active");
 
@@ -33,17 +41,16 @@ async function addingPostsOrUsers(searchInput) {
 	}
 }
 
-async function loadSearchUsers(postsContainer, searchInput) {
-	const params = new URLSearchParams({ search: searchInput, profiles: "true" });
-	console.log(params);
-	//const response = await fetch("/api/posts?" + params);
-	//const jsonData = await response.json();
-	//outputPosts(jsonData, postsContainer);
+async function loadSearchUsers(userContainer, searchInput) {
+	const params = new URLSearchParams({ search: searchInput });
+	const response = await fetch("/api/users?" + params);
+	const jsonData = await response.json();
+	console.log(jsonData);
+	outputUsers(jsonData, userContainer);
 }
 
 async function loadSearchPosts(postsContainer, searchInput) {
-	const params = new URLSearchParams({ search: searchInput, profiles: "false" });
-	console.log(params);
+	const params = new URLSearchParams({ search: searchInput });
 	const response = await fetch("/api/posts?" + params);
 	const jsonData = await response.json();
 	outputPosts(jsonData, postsContainer);
@@ -62,4 +69,41 @@ function createSearchTabs() {
 	`;
 
 	tabsContainer.insertAdjacentHTML("beforeend", html);
+}
+
+
+function outputUsers(userData, userContainer){
+	if (!userData) return;
+
+	userContainer.innerHTML = "";
+
+	if (!Array.isArray(userData)){
+		userData = [userData];
+	}
+
+	if (userData.length === 0){
+		userContainer.insertAdjacentHTML("afterbegin", `<p class="no-posts">No content to show.</p>`);
+	}
+
+	userData.forEach(user => {
+		const html = createUserHtml(user);
+		userContainer.insertAdjacentHTML("beforeend", html);
+	});
+}
+
+function createUserHtml(user){
+	if (!user) return;
+	const displayName = `${user.firstname} ${user.lastname}`;
+
+	return `
+	<div class="${user._id} user">
+		<div class="user-img-container">
+			<img src="../../${user.profilePic}" alt='profile-pic'>
+		</div>
+		<div class="header">
+			<a href="/profile/${user.username}" class="display-name">${displayName}</a>
+			<span class="username">@${user.username}</span>
+		</div>
+	</div>
+	`;
 }
